@@ -30,7 +30,7 @@ executable, which will copy fastentrypoints.py into the working
 directory (or into a list of directories you give it as arguments). It
 is available from PyPI.
 
-You can't really make it a proper depenency because setuptools has to
+You can't really make it a proper dependency because setuptools has to
 import it to work, so chicken-egg. right? Luckily, the script is trivial
 and will not hurt you project much to copy this 40-line file into the
 folder.
@@ -38,3 +38,23 @@ folder.
 Let me know if there are places where this doesn't work well. I've
 mostly tested it with ``console_scripts`` so far, since I don't write
 the other thing.
+
+Distributing with PyPI
+~~~~~~~~~~~~~~~~~~~~~~
+PyPI doesn't distribute everything in your project directory, only what
+it needs to build. This makes importing fastentrypoints a bit tricky. I
+came up with this scary hack to make fastentrypoints work even when it
+is not on the system, thereby making it work with PyPI.
+
+.. code:: python
+
+  try:
+      import fastentrypoints
+  except ImportError:
+      from urllib import request
+      fastep = request.urlopen('https://raw.githubusercontent.com/ninjaaron/fast-entry_points/master/fastentrypoints.py')
+      namespace = {}
+      exec(fastep.read(), namespace)
+
+so yeah, that just happened. If anyone can think of another way to
+import a module without it being on the system, I'd be glad to hear it.
