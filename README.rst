@@ -10,8 +10,9 @@ that look like this:
 
 .. code:: python
 
+  import sys
   from package.module import entry_function
-  entry_function()
+  sys.exit(sysentry_function())
 
 This is faster than whatever the heck the normal console scripts do.
 
