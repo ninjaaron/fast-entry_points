@@ -1,9 +1,9 @@
 Fast entry_points
 =================
-Using ``entry_points`` n your setup.py makes scripts that
-start really slowly because it imports ``pkg_resources``, which is a
-horrible thing to do if you want your trivial script to execute more or
-less instantly. check it out: https://github.com/pypa/setuptools/issues/510
+Using ``entry_points`` in your setup.py makes scripts that start really
+slowly because it imports ``pkg_resources``, which is a horrible thing
+to do if you want your trivial script to execute more or less instantly.
+check it out: https://github.com/pypa/setuptools/issues/510
 
 importing ``fastentrypoints`` in your setup.py file produces scripts
 that look like this:
