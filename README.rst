@@ -12,7 +12,7 @@ that look like this:
 
   import sys
   from package.module import entry_function
-  sys.exit(sysentry_function())
+  sys.exit(entry_function())
 
 This is faster than whatever the heck the normal console scripts do.
 
