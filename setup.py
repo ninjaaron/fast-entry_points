@@ -1,5 +1,11 @@
 from setuptools import setup
-import fastentrypoints
+try:
+    import fastentrypoints
+except ImportError:
+    from urllib import request
+    fastep = request.urlopen('https://raw.githubusercontent.com/ninjaaron/fast-entry_points/master/fastentrypoints.py')
+    namespace = {}
+    exec(fastep.read(), namespace)
 
 setup(
     name='fastentrypoints',

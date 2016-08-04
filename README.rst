@@ -51,12 +51,12 @@ without a trace.
 .. code:: python
 
   try:
-      import fastentrypoints
-  except ImportError:
       from urllib import request
-      fastep = request.urlopen('https://raw.githubusercontent.com/ninjaaron/fast-entry_points/master/fastentrypoints.py')
-      namespace = {}
-      exec(fastep.read(), namespace)
+  except ImportError:
+      import urllib2 as request
+  fastep = request.urlopen('https://raw.githubusercontent.com/ninjaaron/fast-entry_points/master/fastentrypoints.py')
+  namespace = {}
+  exec(fastep.read(), namespace)
 
 so yeah, that just happened. If anyone can think of another way to
 import a module without it being on the system, I'd be glad to hear it.

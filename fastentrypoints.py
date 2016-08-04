@@ -37,5 +37,6 @@ def main():
     import shutil
     import sys
     dests = sys.argv[1:] if sys.argv[1:] else ['.']
+    print(__name__)
     for dst in dests:
         shutil.copy(__file__, dst)
