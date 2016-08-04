@@ -21,8 +21,8 @@ To use fastentrypoints, simply copy fastentrypoints.py into your project
 folder in the same directory as setup.py, and ``import fastentrypoints``
 in your setup.py file. This monkey-patches
 ``setuptools.command.easy_install.ScriptWriter.get_args()`` in the
-background, which, in turn, produces this wonderfully simple entry
-script.
+background, which, in turn, produces wonderfully simple entry
+scripts (like the one above) when you install the package.
 
 If you install fastentrypoints as a module, you have the ``fastep``
 executable, which will copy fastentrypoints.py into the working
