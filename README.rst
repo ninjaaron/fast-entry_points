@@ -43,8 +43,10 @@ Distributing with PyPI
 ~~~~~~~~~~~~~~~~~~~~~~
 PyPI doesn't distribute everything in your project directory, only what
 it needs to build. This makes importing fastentrypoints a bit tricky. I
-came up with this scary hack to make fastentrypoints work even when it
-is not on the system, thereby making it work with PyPI.
+came up with this crazy hack to make fastentrypoints work even when it
+is not on the system, thereby making it work with PyPI. It downloads the
+source into ram an execs it (in its own namespace), and it's gone
+without a trace.
 
 .. code:: python
 
