@@ -3,7 +3,7 @@ import fastentrypoints
 
 setup(
     name='fastentrypoints',
-    version='0.1',
+    version='0.2',
     py_modules=['fastentrypoints'],
     long_description=open('README.rst').read(),
     url='https://github.com/ninjaaron/fast-entry_points',
