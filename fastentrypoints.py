@@ -36,7 +36,9 @@ easy_install.ScriptWriter.get_args = get_args
 def main():
     import shutil
     import sys
-    dests = sys.argv[1:] if sys.argv[1:] else ['.']
+    dests = sys.argv[1:] or ['.']
     print(__name__)
     for dst in dests:
         shutil.copy(__file__, dst)
+        with open(dst + '/MANIFEST.in', 'a') as manifest:
+            manifest.write('\ninclude fastentrypoints.py')

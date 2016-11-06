@@ -27,7 +27,8 @@ scripts (like the one above) when you install the package.
 
 If you install fastentrypoints as a module, you have the ``fastep``
 executable, which will copy fastentrypoints.py into the working
-directory (or into a list of directories you give it as arguments). It
+directory (or into a list of directories you give it as arguments) and
+append ``include fastentrypoints.py`` to the MANIFEST.in file. It
 is available from PyPI.
 
 You can't really make it a proper dependency because setuptools has to
@@ -39,24 +40,24 @@ Let me know if there are places where this doesn't work well. I've
 mostly tested it with ``console_scripts`` so far, since I don't write
 the other thing.
 
-Distributing with PyPI
-~~~~~~~~~~~~~~~~~~~~~~
-PyPI doesn't distribute everything in your project directory, only what
-it needs to build. This makes importing fastentrypoints a bit tricky. I
-came up with this crazy hack to make fastentrypoints work even when it
-is not on the system, thereby making it work with PyPI. It downloads the
-source into ram an execs it (in its own namespace), and it's gone
-without a trace.
-
-.. code:: python
-
-  try:
-      from urllib import request
-  except ImportError:
-      import urllib2 as request
-  fastep = request.urlopen('https://raw.githubusercontent.com/ninjaaron/fast-entry_points/master/fastentrypoints.py')
-  namespace = {}
-  exec(fastep.read(), namespace)
-
-so yeah, that just happened. If anyone can think of another way to
-import a module without it being on the system, I'd be glad to hear it.
+.. Distributing with PyPI
+.. ~~~~~~~~~~~~~~~~~~~~~~
+.. PyPI doesn't distribute everything in your project directory, only what
+.. it needs to build. This makes importing fastentrypoints a bit tricky. I
+.. came up with this crazy hack to make fastentrypoints work even when it
+.. is not on the system, thereby making it work with PyPI. It downloads the
+.. source into ram an execs it (in its own namespace), and it's gone
+.. without a trace.
+.. 
+.. .. code:: python
+.. 
+..   try:
+..       from urllib import request
+..   except ImportError:
+..       import urllib2 as request
+..   fastep = request.urlopen('https://raw.githubusercontent.com/ninjaaron/fast-entry_points/master/fastentrypoints.py')
+..   namespace = {}
+..   exec(fastep.read(), namespace)
+.. 
+.. so yeah, that just happened. If anyone can think of another way to
+.. import a module without it being on the system, I'd be glad to hear it.
