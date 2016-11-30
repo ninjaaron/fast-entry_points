@@ -34,12 +34,22 @@ easy_install.ScriptWriter.get_args = get_args
 
 
 def main():
+    import os
     import re
     import shutil
     import sys
     dests = sys.argv[1:] or ['.']
     filename = re.sub('\.pyc$', '.py', __file__)
+
     for dst in dests:
         shutil.copy(filename, dst)
-        with open(dst + '/MANIFEST.in', 'a') as manifest:
+        manifest_path = os.path.join(dst, 'MANIFEST.in')
+
+        # Detect if include statement is already present
+        with open(manifest_path, 'r') as manifest:
+            if 'include fastentrypoints.py' in manifest.read():
+                continue
+
+        # If not present, insert it
+        with open(manifest_path, 'a') as manifest:
             manifest.write('\ninclude fastentrypoints.py')
