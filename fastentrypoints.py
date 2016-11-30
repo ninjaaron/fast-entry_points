@@ -45,11 +45,8 @@ def main():
         shutil.copy(filename, dst)
         manifest_path = os.path.join(dst, 'MANIFEST.in')
 
-        # Detect if include statement is already present
-        with open(manifest_path, 'r') as manifest:
-            if 'include fastentrypoints.py' in manifest.read():
-                continue
-
-        # If not present, insert it
-        with open(manifest_path, 'a') as manifest:
-            manifest.write('\ninclude fastentrypoints.py')
+        # Insert the include statement to MANIFEST.in if not present
+        with open(manifest_path, 'a+') as manifest:
+            manifest.seek(0)
+            if not 'include fastentrypoints.py' in manifest.read():
+                manifest.write('\ninclude fastentrypoints.py')
