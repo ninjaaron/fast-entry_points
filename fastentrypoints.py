@@ -49,8 +49,10 @@ def main():
         # Insert the include statement to MANIFEST.in if not present
         with open(manifest_path, 'a+') as manifest:
             manifest.seek(0)
-            if not 'include fastentrypoints.py' in manifest.read():
-                manifest.write('\ninclude fastentrypoints.py')
+            manifest_content = manifest.read()
+            if not 'include fastentrypoints.py' in manifest_content:
+                manifest.write(('\n' if manifest_content else '')
+                               + 'include fastentrypoints.py')
 
         # Insert the import statement to setup.py if not present
         with open(setup_path, 'a+') as setup:
