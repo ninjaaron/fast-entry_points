@@ -16,6 +16,14 @@ that look like this:
 
 This is faster than whatever the heck the normal console scripts do.
 
+Note:
+
+  This bug in setuptools only affects packages built with the normal
+  setup.py method. Building wheels avoids the problem and has many other
+  benefits as well. ``fastentrypoints`` simply ensures that your user
+  scripts will not automatically import pkg_resources, no matter how
+  they are built.
+
 Usage
 -----
 To use fastentrypoints, simply copy fastentrypoints.py into your project
@@ -28,13 +36,14 @@ scripts (like the one above) when you install the package.
 If you install fastentrypoints as a module, you have the ``fastep``
 executable, which will copy fastentrypoints.py into the working
 directory (or into a list of directories you give it as arguments) and
-append ``include fastentrypoints.py`` to the MANIFEST.in file. It
-is available from PyPI.
+append ``include fastentrypoints.py`` to the MANIFEST.in file, and
+add an import statement to setup.py. It is available from PyPI.
 
 You can't really make it a proper dependency because setuptools has to
 import it to work, so chicken-egg. right? Luckily, the script is trivial
-and will not hurt you project much to copy this 40-line file into the
-folder.
+and will not hurt you project much to copy this 60-line file into the
+folder. Be sure to add it to MANIFEST.ini if you want to distributie it
+on PyPI.
 
 Let me know if there are places where this doesn't work well. I've
 mostly tested it with ``console_scripts`` so far, since I don't write

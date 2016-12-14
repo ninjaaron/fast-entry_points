@@ -1,10 +1,14 @@
 '''
 Monkey patch setuptools to write faster console_scripts with this format:
 
+    import sys
     from mymodule import entry_function
-    entry_function()
+    sys.exit(entry_function())
 
 This is better.
+
+(c) 2016, Aaron Christianson
+http://github.com/ninjaaron/fast-entry_points
 '''
 from setuptools.command import easy_install
 
@@ -62,3 +66,5 @@ def main():
                 setup.seek(0)
                 setup.truncate()
                 setup.write('import fastentrypoints\n' + setup_content)
+
+print(__name__)
