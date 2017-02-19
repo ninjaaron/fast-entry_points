@@ -20,7 +20,7 @@ from {0} import {1}
 
 if __name__ == '__main__':
     sys.argv[0] = re.sub(r'(-script\.pyw?|\.exe)?$', '', sys.argv[0])
-    sys.exit({1}()) '''
+    sys.exit({1}())'''
 
 
 @classmethod
@@ -29,7 +29,6 @@ def get_args(cls, dist, header=None):
     Yield write_script() argument tuples for a distribution's
     console_scripts and gui_scripts entry points.
     """
-    # template = 'import sys\nfrom {0} import {1}\nsys.exit({1}())'
     if header is None:
         header = cls.get_header()
     spec = str(dist.as_requirement())
