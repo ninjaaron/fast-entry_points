@@ -11,6 +11,7 @@ This is better.
 http://github.com/ninjaaron/fast-entry_points
 '''
 from setuptools.command import easy_install
+import re
 TEMPLATE = '''\
 # -*- coding: utf-8 -*-
 import re
