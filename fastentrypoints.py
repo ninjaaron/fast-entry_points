@@ -35,7 +35,9 @@ def get_args(cls, dist, header=None):
     for type_ in 'console', 'gui':
         group = type_ + '_scripts'
         for name, ep in dist.get_entry_map(group).items():
-            cls._ensure_safe_name(name)
+            # ensure_safe_name
+            if re.search(r'[\\/]', name):
+                raise ValueError("Path separators not allowed in script names")
             script_text = TEMPLATE.format(
                           ep.module_name, ep.attrs[0])
             args = cls._get_script_args(type_, name, header, script_text)
