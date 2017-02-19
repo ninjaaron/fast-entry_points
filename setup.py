@@ -3,7 +3,7 @@ import fastentrypoints
 
 setup(
     name='fastentrypoints',
-    version='0.4',
+    version='0.5',
     py_modules=['fastentrypoints'],
     description='Makes entry_points specified in setup.py load more quickly',
     long_description=open('README.rst').read(),

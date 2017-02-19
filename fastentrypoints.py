@@ -1,10 +1,14 @@
 '''
 Monkey patch setuptools to write faster console_scripts with this format:
 
+    import sys
     from mymodule import entry_function
-    entry_function()
+    sys.exit(entry_function())
 
 This is better.
+
+(c) 2016, Aaron Christianson
+http://github.com/ninjaaron/fast-entry_points
 '''
 from setuptools.command import easy_install
 TEMPLATE = '''\
@@ -44,11 +48,33 @@ easy_install.ScriptWriter.get_args = get_args
 
 
 def main():
+    import os
+    import re
     import shutil
     import sys
     dests = sys.argv[1:] or ['.']
-    print(__name__)
+    filename = re.sub('\.pyc$', '.py', __file__)
+
     for dst in dests:
-        shutil.copy(__file__, dst)
-        with open(dst + '/MANIFEST.in', 'a') as manifest:
-            manifest.write('\ninclude fastentrypoints.py')
+        shutil.copy(filename, dst)
+        manifest_path = os.path.join(dst, 'MANIFEST.in')
+        setup_path = os.path.join(dst, 'setup.py')
+
+        # Insert the include statement to MANIFEST.in if not present
+        with open(manifest_path, 'a+') as manifest:
+            manifest.seek(0)
+            manifest_content = manifest.read()
+            if not 'include fastentrypoints.py' in manifest_content:
+                manifest.write(('\n' if manifest_content else '')
+                               + 'include fastentrypoints.py')
+
+        # Insert the import statement to setup.py if not present
+        with open(setup_path, 'a+') as setup:
+            setup.seek(0)
+            setup_content = setup.read()
+            if not 'import fastentrypoints' in setup_content:
+                setup.seek(0)
+                setup.truncate()
+                setup.write('import fastentrypoints\n' + setup_content)
+
+print(__name__)
