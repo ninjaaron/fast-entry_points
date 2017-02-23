@@ -9,12 +9,18 @@ importing ``fastentrypoints`` in your setup.py file produces scripts
 that look like this:
 
 .. code:: python
-
+  # -*- coding: utf-8 -*-
+  import re
   import sys
-  from package.module import entry_function
-  sys.exit(entry_function())
 
-This is faster than whatever the heck the normal console scripts do.
+  from package.module import entry_function
+
+  if __name__ == '__main__':
+    sys.argv[0] = re.sub(r'(-script\.pyw?|\.exe)?$', '', sys.argv[0])
+    sys.exit({1}())
+
+This is ripped directly from the way wheels do it and is faster than
+whatever the heck the normal console scripts do.
 
 Note:
 
@@ -30,8 +36,8 @@ To use fastentrypoints, simply copy fastentrypoints.py into your project
 folder in the same directory as setup.py, and ``import fastentrypoints``
 in your setup.py file. This monkey-patches
 ``setuptools.command.easy_install.ScriptWriter.get_args()`` in the
-background, which, in turn, produces wonderfully simple entry
-scripts (like the one above) when you install the package.
+background, which, in turn, produces simple entry scripts (like the one
+above) when you install the package.
 
 If you install fastentrypoints as a module, you have the ``fastep``
 executable, which will copy fastentrypoints.py into the working
@@ -48,25 +54,3 @@ on PyPI.
 Let me know if there are places where this doesn't work well. I've
 mostly tested it with ``console_scripts`` so far, since I don't write
 the other thing.
-
-.. Distributing with PyPI
-.. ~~~~~~~~~~~~~~~~~~~~~~
-.. PyPI doesn't distribute everything in your project directory, only what
-.. it needs to build. This makes importing fastentrypoints a bit tricky. I
-.. came up with this crazy hack to make fastentrypoints work even when it
-.. is not on the system, thereby making it work with PyPI. It downloads the
-.. source into ram an execs it (in its own namespace), and it's gone
-.. without a trace.
-.. 
-.. .. code:: python
-.. 
-..   try:
-..       from urllib import request
-..   except ImportError:
-..       import urllib2 as request
-..   fastep = request.urlopen('https://raw.githubusercontent.com/ninjaaron/fast-entry_points/master/fastentrypoints.py')
-..   namespace = {}
-..   exec(fastep.read(), namespace)
-.. 
-.. so yeah, that just happened. If anyone can think of another way to
-.. import a module without it being on the system, I'd be glad to hear it.
