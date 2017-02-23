@@ -9,6 +9,7 @@ importing ``fastentrypoints`` in your setup.py file produces scripts
 that look like this:
 
 .. code:: python
+
   # -*- coding: utf-8 -*-
   import re
   import sys
