@@ -21,7 +21,7 @@ from {0} import {1}
 
 if __name__ == '__main__':
     sys.argv[0] = re.sub(r'(-script\.pyw?|\.exe)?$', '', sys.argv[0])
-    sys.exit({1}())'''
+    sys.exit({2}())'''
 
 
 @classmethod
@@ -40,7 +40,7 @@ def get_args(cls, dist, header=None):
             if re.search(r'[\\/]', name):
                 raise ValueError("Path separators not allowed in script names")
             script_text = TEMPLATE.format(
-                          ep.module_name, ep.attrs[0])
+                          ep.module_name, ep.attrs[0], '.'.join(ep.attrs))
             args = cls._get_script_args(type_, name, header, script_text)
             for res in args:
                 yield res
