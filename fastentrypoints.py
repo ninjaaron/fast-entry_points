@@ -39,6 +39,8 @@ from setuptools.command import easy_install
 import re
 TEMPLATE = '''\
 # -*- coding: utf-8 -*-
+# EASY-INSTALL-ENTRY-SCRIPT: '{3}','{4}','{5}'
+__requires__ = '{3}'
 import re
 import sys
 
@@ -65,7 +67,8 @@ def get_args(cls, dist, header=None):
             if re.search(r'[\\/]', name):
                 raise ValueError("Path separators not allowed in script names")
             script_text = TEMPLATE.format(
-                          ep.module_name, ep.attrs[0], '.'.join(ep.attrs))
+                          ep.module_name, ep.attrs[0], '.'.join(ep.attrs),
+                          spec, group, name)
             args = cls._get_script_args(type_, name, header, script_text)
             for res in args:
                 yield res
