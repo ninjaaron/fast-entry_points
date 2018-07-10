@@ -1,3 +1,4 @@
+# noqa: D300,D400
 # Copyright (c) 2016, Aaron Christianson
 # All rights reserved.
 #
@@ -52,12 +53,13 @@ if __name__ == '__main__':
 
 
 @classmethod
-def get_args(cls, dist, header=None):
+def get_args(cls, dist, header=None):  # noqa: D205,D400
     """
     Yield write_script() argument tuples for a distribution's
     console_scripts and gui_scripts entry points.
     """
     if header is None:
+        # pylint: disable=E1101
         header = cls.get_header()
     spec = str(dist.as_requirement())
     for type_ in 'console', 'gui':
@@ -67,13 +69,15 @@ def get_args(cls, dist, header=None):
             if re.search(r'[\\/]', name):
                 raise ValueError("Path separators not allowed in script names")
             script_text = TEMPLATE.format(
-                          ep.module_name, ep.attrs[0], '.'.join(ep.attrs),
-                          spec, group, name)
+                ep.module_name, ep.attrs[0], '.'.join(ep.attrs),
+                spec, group, name)
+            # pylint: disable=E1101
             args = cls._get_script_args(type_, name, header, script_text)
             for res in args:
                 yield res
 
 
+# pylint: disable=E1101
 easy_install.ScriptWriter.get_args = get_args
 
 
@@ -94,17 +98,18 @@ def main():
         with open(manifest_path, 'a+') as manifest:
             manifest.seek(0)
             manifest_content = manifest.read()
-            if not 'include fastentrypoints.py' in manifest_content:
-                manifest.write(('\n' if manifest_content else '')
-                               + 'include fastentrypoints.py')
+            if 'include fastentrypoints.py' not in manifest_content:
+                manifest.write(('\n' if manifest_content else '') +
+                               'include fastentrypoints.py')
 
         # Insert the import statement to setup.py if not present
         with open(setup_path, 'a+') as setup:
             setup.seek(0)
             setup_content = setup.read()
-            if not 'import fastentrypoints' in setup_content:
+            if 'import fastentrypoints' not in setup_content:
                 setup.seek(0)
                 setup.truncate()
                 setup.write('import fastentrypoints\n' + setup_content)
+
 
 print(__name__)
