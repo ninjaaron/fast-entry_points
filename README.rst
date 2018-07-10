@@ -52,6 +52,20 @@ and will not hurt you project much to copy this 60-line file into the
 folder. Be sure to add it to MANIFEST.ini if you want to distributie it
 on PyPI.
 
+Alternatively, if you don't want to vendor the code, it is possible to
+install it from pypi with easy_install in the setup script:
+
+.. code:: python
+
+  try:
+      import fastentrypoints
+  except ImportError:
+      from setuptools.command import easy_install
+      import pkg_resources
+      easy_install.main(['fastentrypoints'])
+      pkg_resources.require('fastentrypoints')
+      import fastentrypoint
+
 Let me know if there are places where this doesn't work well. I've
 mostly tested it with ``console_scripts`` so far, since I don't write
 the other thing.
