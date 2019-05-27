@@ -46,14 +46,19 @@ directory (or into a list of directories you give it as arguments) and
 append ``include fastentrypoints.py`` to the MANIFEST.in file, and
 add an import statement to setup.py. It is available from PyPI.
 
-You can't really make it a proper dependency because setuptools has to
-import it to work, so chicken-egg. right? Luckily, the script is trivial
-and will not hurt you project much to copy this 60-line file into the
-folder. Be sure to add it to MANIFEST.ini if you want to distributie it
-on PyPI.
+Be sure to add ``fastentrypoints.py`` to MANIFEST.ini if you want to
+distribute your package on PyPI.
 
-Alternatively, if you don't want to vendor the code, it is possible to
-install it from pypi with easy_install in the setup script:
+Alternatively, you can specify ``fastentrypoints`` as a build system
+dependency by adding a ``pyproject.toml`` file (`PEP 518
+<https://www.python.org/dev/peps/pep-0518/>`_) with these lines to
+your project folder::
+ 
+    [build-system]
+    requires = ["setuptools", "wheel", "fastentrypoints"]
+
+It is also possible to install it from PyPI with easy_install in
+the setup script:
 
 .. code:: python
 
