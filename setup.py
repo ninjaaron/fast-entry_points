@@ -6,7 +6,7 @@ setup(
     version='0.12',
     py_modules=['fastentrypoints'],
     description='Makes entry_points specified in setup.py load more quickly',
-    long_description=open('README.rst').read(),
+    long_description=open('README.rst', 'r', encoding='utf-8').read(),
     url='https://github.com/ninjaaron/fast-entry_points',
     author='Aaron Christianson',
     author_email='ninjaaron@gmail.com',
