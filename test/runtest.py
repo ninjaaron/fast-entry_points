@@ -30,7 +30,7 @@ def main():
     sp.run([str(pip), "install", TEST_DIR], check=True)
 
     try:
-        with open(testenv / "bin" / "hello") as output:
+        with open(str(testenv / "bin" / "hello")) as output:
             output.readline()  # eat shabang line, which is non-deterministic.
             assert output.read() == EXPECTED_OUTPUT
     finally:
