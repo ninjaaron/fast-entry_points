@@ -6,7 +6,7 @@ to do if you want your trivial script to execute more or less instantly.
 check it out: https://github.com/pypa/setuptools/issues/510
 
 importing ``fastentrypoints`` in your setup.py file produces scripts
-that look like this:
+that looks (more or less) like this:
 
 .. code:: python
 
@@ -74,3 +74,11 @@ the setup script:
 Let me know if there are places where this doesn't work well. I've
 mostly tested it with ``console_scripts`` so far, since I don't write
 the other thing.
+
+Test
+----
+There is one test. To run it, do ``test/runtest.py``. It installs a
+dummy package with fastentrypoints and ensures the generated script is
+what is expected.
+
+It requires Python 3.5 or higher because it uses ``subprocess.run``.
