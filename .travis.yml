@@ -1,0 +1,7 @@
+language: python
+python:
+  - 2.7
+  - 3.7
+before_install: pip install virtualenv pathlib2
+install: pip install .
+script: python test/runtest.py

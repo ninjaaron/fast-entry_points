@@ -80,5 +80,3 @@ Test
 There is one test. To run it, do ``test/runtest.py``. It installs a
 dummy package with fastentrypoints and ensures the generated script is
 what is expected.
-
-It requires Python 3.5 or higher because it uses ``subprocess.run``.
