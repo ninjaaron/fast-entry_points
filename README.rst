@@ -3,9 +3,11 @@ Fast entry_points
 Using ``entry_points`` in your setup.py makes scripts that start really
 slowly because it imports ``pkg_resources``, which is a horrible thing
 to do if you want your trivial script to execute more or less instantly.
-check it out: https://github.com/pypa/setuptools/issues/510
+Check it out: https://github.com/pypa/setuptools/issues/510
 
-importing ``fastentrypoints`` in your setup.py file produces scripts
+
+
+Importing ``fastentrypoints`` in your setup.py file produces scripts
 that looks (more or less) like this:
 
 .. code:: python
@@ -30,6 +32,9 @@ Note:
   benefits as well. ``fastentrypoints`` simply ensures that your user
   scripts will not automatically import pkg_resources, no matter how
   they are built.
+  
+  When using Python 3.8 and setuptools 47.2 (or newer), console scripts
+  do not import pkg_resources.
 
 Usage
 -----
